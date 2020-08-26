@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="http://prismlibrary.com/"
     Width="800"
-    Height="450"
+    Height="800"
     prism:ViewModelLocator.AutoWireViewModel="True"
     Background="#A1FF75"
     mc:Ignorable="d">
