@@ -22,6 +22,11 @@ namespace ECommerce.Main
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            // navigation
+            containerRegistry.RegisterForNavigation<LoginView>();
+            containerRegistry.RegisterForNavigation<ProductsView>();
+
+            // services
             containerRegistry.RegisterSingleton<IValidationService, ValidationService>();
         }
     }

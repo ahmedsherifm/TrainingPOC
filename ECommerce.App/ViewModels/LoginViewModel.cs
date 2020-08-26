@@ -3,6 +3,7 @@ using ECommerce.Core.Constants;
 using ECommerce.Main.Services;
 using Prism.Commands;
 using Prism.Mvvm;
+using Prism.Regions;
 using Prism.Services.Dialogs;
 using System;
 using System.Collections;
@@ -11,17 +12,19 @@ using System.ComponentModel;
 
 namespace ECommerce.Main.ViewModels
 {
-    public class LoginViewModel: BindableBase, INotifyDataErrorInfo
+    public class LoginViewModel: BindableBase, INavigationAware
     {
         private string _username;
         private IDialogService _dialogService;
         private readonly IValidationService _validationService;
+        private readonly IRegionManager _regionManager;
 
-        public LoginViewModel(IDialogService dialogService, IValidationService validationService)
+        public LoginViewModel(IDialogService dialogService, IValidationService validationService, IRegionManager regionManager)
         {
             LoginCommand = new DelegateCommand(OnSubmit);
             _dialogService = dialogService;
             _validationService = validationService;
+            _regionManager = regionManager;
         }
 
         public string Username
@@ -34,44 +37,40 @@ namespace ECommerce.Main.ViewModels
         }
 
         public DelegateCommand LoginCommand { get; set; }
-        
 
         private void OnSubmit()
         {
             if (!CheckUsername())
             {
                 _dialogService.ShowMessageDialog("Username format is not valid.\n" +
-                    "Please re-enter username without spaces or special characters", null);
+                    "Please re-enter Username without spaces or special characters", null);
 
                 return;
             }
 
             _dialogService.ShowMessageDialog($"Welcome {Username}", null);
-        }
-
-        public bool HasErrors { get; set; } = false;
-
-        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged = delegate { };
-
-        public IEnumerable GetErrors(string propertyName)
-        {
-            if (string.IsNullOrEmpty(propertyName) || (!HasErrors))
-                return null;
-
-            return new List<string>() { "Invalid username format" };
+            _regionManager.RequestNavigate("MainRegion", ViewsNames.ProductsView);
         }
 
         private bool CheckUsername()
         {
-            HasErrors = !_validationService.IsRegexValid(Username, RegularExpressions.LETTERS_AND_NUMBERS_ONLY_PATTERN);
+            return _validationService.IsRegexValid(Username, RegularExpressions.LETTERS_AND_NUMBERS_ONLY_PATTERN);
+        }
 
-            if (HasErrors)
-            {
-                ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(nameof(Username)));
-                return false;
-            }
+        public void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            Username = "";
+            Global.UserName = "";
+        }
 
+        public bool IsNavigationTarget(NavigationContext navigationContext)
+        {
             return true;
+        }
+
+        public void OnNavigatedFrom(NavigationContext navigationContext)
+        {
+            Global.UserName = Username;
         }
     }
 }
