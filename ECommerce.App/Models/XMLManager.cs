@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 
 namespace ECommerce.Main.Models
 {
-    public class XMLManager
+    public class XMLManager : IXMLManager
     {
         public IEnumerable<T> LoadAll<T>(string filename)
         {

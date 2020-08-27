@@ -7,14 +7,18 @@ namespace ECommerce.Main.Services
 {
     public class UserService : IUserService
     {
+        private readonly IXMLManager _xmlManager;
         private List<User> _users = new List<User>();
-
         private User _currentUser;
+
+        public UserService(IXMLManager xmlManager)
+        {
+            _xmlManager = xmlManager;
+            LoadUsersFromXML();
+        }
 
         public int GetUserIdByUsername(string username)
         {
-            LoadUsersFromXML();
-
             if (IsUserExists(username))
                 return _currentUser.Id;
 
@@ -36,8 +40,7 @@ namespace ECommerce.Main.Services
 
         private void LoadUsersFromXML()
         {
-            XMLManager manager = new XMLManager();
-            _users = manager.LoadAll<User>("Users").ToList();
+            _users = _xmlManager.LoadAll<User>("Users").ToList();
         }
     }
 }

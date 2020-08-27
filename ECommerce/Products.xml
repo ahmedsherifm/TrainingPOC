@@ -7,11 +7,13 @@
     <Price>300</Price>
     <Quantity>6</Quantity>
     <ImagePosterUrl>https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg</ImagePosterUrl>
-    <Images>https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg</Images>
-    <Images>https://thegoodguys.sirv.com/products/50052624/50052624_562897.PNG</Images>
-    <Images>https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg</Images>
-    <Images>https://thegoodguys.sirv.com/products/50052624/50052624_562897.PNG</Images>
-    <Images>https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg</Images>
+    <Images>
+      <Image>https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg</Image>
+      <Image>https://thegoodguys.sirv.com/products/50052624/50052624_562897.PNG</Image>
+      <Image>https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg</Image>
+      <Image>https://thegoodguys.sirv.com/products/50052624/50052624_562897.PNG</Image>
+      <Image>https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg</Image>
+    </Images>
   </Product>
   <Product>
     <Id>2</Id>
@@ -20,10 +22,12 @@
     <Price>1000</Price>
     <Quantity>2</Quantity>
     <ImagePosterUrl>https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg</ImagePosterUrl>
-    <Images>https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg</Images>
-    <Images>https://thegoodguys.sirv.com/products/50052624/50052624_562897.PNG</Images>
-    <Images>https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg</Images>
-    <Images>https://thegoodguys.sirv.com/products/50052624/50052624_562897.PNG</Images>
-    <Images>https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg</Images>
+    <Images>
+      <Image>https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg</Image>
+      <Image>https://thegoodguys.sirv.com/products/50052624/50052624_562897.PNG</Image>
+      <Image>https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg</Image>
+      <Image>https://thegoodguys.sirv.com/products/50052624/50052624_562897.PNG</Image>
+      <Image>https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg</Image>
+    </Images>
   </Product>
 </ArrayOfProduct>

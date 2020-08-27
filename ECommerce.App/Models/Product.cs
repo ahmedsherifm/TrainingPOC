@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace ECommerce.Main.Models
 {
@@ -12,6 +13,7 @@ namespace ECommerce.Main.Models
         public decimal Price { get; set; }
         public int Quantity { get; set; }
         public string ImagePosterUrl { get; set; }
+        [XmlIgnore]
         public ICollection<string> Images { get; set; }
     }
 }
