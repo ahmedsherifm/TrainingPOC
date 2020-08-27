@@ -35,7 +35,7 @@
                 ItemsSource="{Binding Products}"
                 SelectedItem="{Binding SelectedProduct}">
                 <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="{Binding SelectProductCommand}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
@@ -49,13 +49,14 @@
                                     Foreground="Black"
                                     Text="{Binding Name}" />
                                 <TextBlock
-                                    Width="400"
+                                    Width="500"
                                     MaxHeight="84"
                                     FontSize="12"
                                     Foreground="Black"
                                     LineHeight="28"
                                     LineStackingStrategy="BlockLineHeight"
                                     Text="{Binding Description}"
+                                    TextTrimming="WordEllipsis"
                                     TextWrapping="Wrap" />
                                 <TextBlock
                                     Margin="0,15,0,0"
