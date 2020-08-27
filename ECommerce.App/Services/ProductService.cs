@@ -19,7 +19,6 @@ namespace ECommerce.Main.Services
                     Price=  300,
                     Quantity= 6,
                     ImagePosterUrl = "https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg",
-                    CreatedDate = new DateTime(2019,7,19,21,2,50,4),
                     Images = new List<string>
                     {
                         "https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg",
@@ -37,7 +36,6 @@ namespace ECommerce.Main.Services
                 Price=  1000,
                 Quantity= 2,
                 ImagePosterUrl = "https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg",
-                CreatedDate = new DateTime(2019,7,19,21,2,50,4),
                 Images = new List<string>
                 {
                     "https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg",
