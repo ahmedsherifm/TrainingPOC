@@ -1,13 +1,15 @@
 ﻿using ECommerce.Core;
+using ECommerce.Core.Constants;
 using Prism.Commands;
 using Prism.Mvvm;
+using Prism.Regions;
 using Prism.Services.Dialogs;
 
 namespace ECommerce.Main.ViewModels.Shared
 {
     public class NavbarViewModel: BindableBase
     {
-        private readonly IDialogService _dialogService;
+        private readonly IRegionManager _regionManager;
         private string _username;
         private int _numberOfCartItems;
         
@@ -23,12 +25,12 @@ namespace ECommerce.Main.ViewModels.Shared
             set { SetProperty(ref _numberOfCartItems, value); }
         }
 
-        public NavbarViewModel(IDialogService dialogService)
+        public NavbarViewModel(IRegionManager regionManager)
         {
             Username = Global.UserName.ToString();
             CartCommand = new DelegateCommand(OnCartCommand);
             DotsCommand = new DelegateCommand(OnDotsCommand);
-            _dialogService = dialogService;
+            _regionManager = regionManager;
         }
 
         public DelegateCommand CartCommand { get; private set; }
@@ -36,12 +38,14 @@ namespace ECommerce.Main.ViewModels.Shared
 
         private void OnDotsCommand()
         {
-            _dialogService.ShowMessageDialog("Options Dialog", null);
+            /// TODO: open context menu with options
+            
+            _regionManager.RequestNavigate(Regions.MainRegion, ViewsNames.ProductsView);
         }
 
         private void OnCartCommand()
         {
-            _dialogService.ShowMessageDialog("Open Cart Page", null);
+            _regionManager.RequestNavigate(Regions.MainRegion, ViewsNames.CartView);
         }
     }
 }

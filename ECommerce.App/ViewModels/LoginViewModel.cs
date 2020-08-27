@@ -62,7 +62,7 @@ namespace ECommerce.Main.ViewModels
             Global.UserId = userId;
             Global.UserName = Username;
 
-            _regionManager.RequestNavigate("MainRegion", ViewsNames.ProductsView);
+            _regionManager.RequestNavigate(Regions.MainRegion, ViewsNames.ProductsView);
         }
 
         private bool IsUsernameValid()

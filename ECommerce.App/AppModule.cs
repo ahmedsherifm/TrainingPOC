@@ -25,6 +25,8 @@ namespace ECommerce.Main
             // navigation
             containerRegistry.RegisterForNavigation<LoginView>();
             containerRegistry.RegisterForNavigation<ProductsView>();
+            containerRegistry.RegisterForNavigation<ProductDetailsView>();
+            containerRegistry.RegisterForNavigation<CartView>();
 
             // services
             containerRegistry.RegisterSingleton<IValidationService, ValidationService>();
