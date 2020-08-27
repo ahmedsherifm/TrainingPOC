@@ -48,7 +48,6 @@ namespace ECommerce.Main.ViewModels
                 return;
             }
 
-            _dialogService.ShowMessageDialog($"Welcome {Username}", null);
             _regionManager.RequestNavigate("MainRegion", ViewsNames.ProductsView);
         }
 
