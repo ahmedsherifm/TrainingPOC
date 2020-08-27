@@ -1,11 +1,9 @@
-﻿using ECommerce.Core;
+﻿using ECommerce.Core.Constants;
 using ECommerce.Main.Models;
 using ECommerce.Main.Services;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
-using Prism.Services.Dialogs;
-using System;
 using System.Collections.Generic;
 
 namespace ECommerce.Main.ViewModels
@@ -27,18 +25,24 @@ namespace ECommerce.Main.ViewModels
         }
 
         private readonly IProductService _productService;
-        private readonly IDialogService _dialogService;
+        private readonly IRegionManager _regionManager;
 
-        public ProductsViewModel(IProductService productService, IDialogService dialogService)
+        public ProductsViewModel(IProductService productService, IRegionManager regionManager)
         {
             _productService = productService;
-            _dialogService = dialogService;
+            _regionManager = regionManager;
             SelectProductCommand = new DelegateCommand(OnSelectProductCommand);
         }
 
         private void OnSelectProductCommand()
         {
-            _dialogService.ShowMessageDialog($"product id: {SelectedProduct.Id}", null);
+            if (SelectedProduct == null)
+                return;
+
+            var param = new NavigationParameters();
+            param.Add("productId", SelectedProduct.Id);
+
+            _regionManager.RequestNavigate(Regions.MainRegion, ViewsNames.ProductDetailsView, param);
         }
 
         public DelegateCommand SelectProductCommand { get; private set; }

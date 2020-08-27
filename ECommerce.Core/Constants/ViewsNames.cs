@@ -8,5 +8,7 @@ namespace ECommerce.Core.Constants
     {
         public const string LoginView = "LoginView";
         public const string ProductsView = "ProductsView";
+        public const string ProductDetailsView = "ProductDetailsView";
+        public const string CartView = "CartView";
     }
 }
