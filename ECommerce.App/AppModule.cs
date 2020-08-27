@@ -29,6 +29,7 @@ namespace ECommerce.Main
             // services
             containerRegistry.RegisterSingleton<IValidationService, ValidationService>();
             containerRegistry.RegisterSingleton<IProductService, ProductService>();
+            containerRegistry.RegisterSingleton<IUserService, UserService>();
         }
     }
 }

@@ -18,13 +18,16 @@ namespace ECommerce.Main.ViewModels
         private IDialogService _dialogService;
         private readonly IValidationService _validationService;
         private readonly IRegionManager _regionManager;
+        private readonly IUserService _userService;
 
-        public LoginViewModel(IDialogService dialogService, IValidationService validationService, IRegionManager regionManager)
+        public LoginViewModel(IDialogService dialogService, IValidationService validationService,
+            IRegionManager regionManager, IUserService userService)
         {
             LoginCommand = new DelegateCommand(OnSubmit);
             _dialogService = dialogService;
             _validationService = validationService;
             _regionManager = regionManager;
+            _userService = userService;
         }
 
         public string Username
@@ -40,7 +43,7 @@ namespace ECommerce.Main.ViewModels
 
         private void OnSubmit()
         {
-            if (!CheckUsername())
+            if (!IsUsernameValid())
             {
                 _dialogService.ShowMessageDialog("Username format is not valid.\n" +
                     "Please re-enter Username without spaces or special characters", null);
@@ -48,17 +51,34 @@ namespace ECommerce.Main.ViewModels
                 return;
             }
 
+            var userId = GetUserId();
+            if(userId == -1)
+            {
+                _dialogService.ShowMessageDialog("Username not found", null);
+
+                return;
+            }
+
+            Global.UserId = userId;
+            Global.UserName = Username;
+
             _regionManager.RequestNavigate("MainRegion", ViewsNames.ProductsView);
         }
 
-        private bool CheckUsername()
+        private bool IsUsernameValid()
         {
             return _validationService.IsRegexValid(Username, RegularExpressions.LETTERS_AND_NUMBERS_ONLY_PATTERN);
+        }
+
+        private int GetUserId()
+        {
+            return _userService.GetUserIdByUsername(Username);
         }
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
             Username = "";
+            Global.UserId = -1;
             Global.UserName = "";
         }
 
@@ -69,7 +89,6 @@ namespace ECommerce.Main.ViewModels
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
-            Global.UserName = Username;
         }
     }
 }

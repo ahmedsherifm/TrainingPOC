@@ -37,6 +37,19 @@ namespace ECommerce.Core
             }
         }
 
+        public static object UserId
+        {
+            get
+            {
+                return GetProperty("UserId");
+
+            }
+            set
+            {
+                SetProperty("UserId", value);
+            }
+        }
+
         public static object FilterMinPrice
         {
             get
