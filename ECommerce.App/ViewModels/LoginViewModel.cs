@@ -1,18 +1,18 @@
 ﻿using ECommerce.Core;
 using ECommerce.Core.Constants;
+using ECommerce.Main.Models;
 using ECommerce.Main.Services;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
 using Prism.Services.Dialogs;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Linq;
 
 namespace ECommerce.Main.ViewModels
 {
-    public class LoginViewModel: BindableBase, INavigationAware
+    public class LoginViewModel : BindableBase, INavigationAware
     {
         private string _username;
         private IDialogService _dialogService;

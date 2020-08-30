@@ -1,5 +1,6 @@
 ﻿using ECommerce.Core;
 using ECommerce.Core.Constants;
+using ECommerce.Main.Services;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -10,6 +11,8 @@ namespace ECommerce.Main.ViewModels.Shared
     public class NavbarViewModel: BindableBase
     {
         private readonly IRegionManager _regionManager;
+        private readonly IUserService _userService;
+        private readonly ICartSerivce _cartSerivce;
         private string _username;
         private int _numberOfCartItems;
         
@@ -25,12 +28,16 @@ namespace ECommerce.Main.ViewModels.Shared
             set { SetProperty(ref _numberOfCartItems, value); }
         }
 
-        public NavbarViewModel(IRegionManager regionManager)
+        public NavbarViewModel(IRegionManager regionManager, IUserService userService, ICartSerivce cartSerivce)
         {
             Username = Global.UserName.ToString();
             CartCommand = new DelegateCommand(OnCartCommand);
             DotsCommand = new DelegateCommand(OnDotsCommand);
             _regionManager = regionManager;
+            _userService = userService;
+            _cartSerivce = cartSerivce;
+
+            OnAppearing();
         }
 
         public DelegateCommand CartCommand { get; private set; }
@@ -46,6 +53,12 @@ namespace ECommerce.Main.ViewModels.Shared
         private void OnCartCommand()
         {
             _regionManager.RequestNavigate(Regions.MainRegion, ViewsNames.CartView);
+        }
+
+        private void OnAppearing()
+        {
+            var userId = _userService.GetUserIdByUsername(Username);
+            NumberOfCartItems = _cartSerivce.GetNumberOfCartItems(userId);
         }
     }
 }

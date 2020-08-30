@@ -1,4 +1,5 @@
-﻿using ECommerce.Main.Services;
+﻿using ECommerce.Main.Models;
+using ECommerce.Main.Services;
 using ECommerce.Main.Views;
 using Prism.Ioc;
 using Prism.Modularity;
@@ -32,6 +33,8 @@ namespace ECommerce.Main
             containerRegistry.RegisterSingleton<IValidationService, ValidationService>();
             containerRegistry.RegisterSingleton<IProductService, ProductService>();
             containerRegistry.RegisterSingleton<IUserService, UserService>();
+            containerRegistry.RegisterSingleton<IXMLManager, XMLManager>();
+            containerRegistry.RegisterSingleton<ICartSerivce, CartService>();
         }
     }
 }
