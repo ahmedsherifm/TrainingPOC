@@ -7,17 +7,17 @@ namespace ECommerce.Main.Models
 {
     public class XMLManager : IXMLManager
     {
-        public IEnumerable<T> LoadAll<T>(string filename)
+        public T Load<T>(string filename)
         {
             var path = $@"{GetCurrentDirectory()}\{filename}.xml";
-            XmlSerializer serializer = new XmlSerializer(typeof(List<T>));
-            
+            XmlSerializer serializer = new XmlSerializer(typeof(T));
+
             StreamReader reader = new StreamReader(path);
 
-            var lst = (List<T>)serializer.Deserialize(reader);
+            var data = (T)serializer.Deserialize(reader);
             reader.Close();
 
-            return lst;
+            return data;
         }
 
         private string GetCurrentDirectory()

@@ -40,7 +40,8 @@ namespace ECommerce.Main.Services
 
         private void LoadUsersFromXML()
         {
-            _users = _xmlManager.LoadAll<User>("Users").ToList();
+            var users = _xmlManager.Load<Users>("Users");
+            _users = users.UsersList;
         }
     }
 }

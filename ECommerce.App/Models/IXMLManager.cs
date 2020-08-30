@@ -4,6 +4,6 @@ namespace ECommerce.Main.Models
 {
     public interface IXMLManager
     {
-        IEnumerable<T> LoadAll<T>(string filename);
+        T Load<T>(string filename);
     }
 }

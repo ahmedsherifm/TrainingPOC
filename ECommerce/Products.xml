@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<ArrayOfProduct xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<Products>
   <Product>
     <Id>1</Id>
     <Name>LG Smart TV 21&quot;</Name>
@@ -30,4 +29,4 @@
       <Image>https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg</Image>
     </Images>
   </Product>
-</ArrayOfProduct>
+</Products>

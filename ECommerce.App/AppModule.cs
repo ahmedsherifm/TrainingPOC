@@ -34,6 +34,7 @@ namespace ECommerce.Main
             containerRegistry.RegisterSingleton<IProductService, ProductService>();
             containerRegistry.RegisterSingleton<IUserService, UserService>();
             containerRegistry.RegisterSingleton<IXMLManager, XMLManager>();
+            containerRegistry.RegisterSingleton<ICartSerivce, CartService>();
         }
     }
 }

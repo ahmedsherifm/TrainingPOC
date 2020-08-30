@@ -37,7 +37,8 @@ namespace ECommerce.Main.Services
 
         private void LoadProductsFromXML()
         {
-            _products = _xmlManager.LoadAll<Product>("Products").ToList();
+            var products = _xmlManager.Load<Products>("Products");
+            _products = products.ProductList;
         }
     }
 }

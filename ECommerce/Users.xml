@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<ArrayOfUser>
+<Users>
   <User>
     <Id>1</Id>
     <Username>ahmed</Username>
@@ -12,4 +11,4 @@
     <Id>3</Id>
     <Username>amr</Username>
   </User>
-</ArrayOfUser>
+</Users>
