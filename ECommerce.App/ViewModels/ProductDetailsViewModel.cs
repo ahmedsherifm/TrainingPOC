@@ -1,4 +1,5 @@
-﻿using ECommerce.Core.Constants;
+﻿using ECommerce.Core;
+using ECommerce.Core.Constants;
 using ECommerce.Main.Models;
 using ECommerce.Main.Services;
 using Prism.Commands;
@@ -13,6 +14,8 @@ namespace ECommerce.Main.ViewModels
         private Product product;
         private readonly IProductService _productService;
         private readonly IRegionManager _regionManager;
+        private readonly IUserService _userService;
+        private readonly ICartSerivce _cartSerivce;
 
         public Product Product
         {
@@ -31,10 +34,13 @@ namespace ECommerce.Main.ViewModels
             }
         }
 
-        public ProductDetailsViewModel(IProductService productService, IRegionManager regionManager)
+        public ProductDetailsViewModel(IProductService productService, IRegionManager regionManager,
+            IUserService userService, ICartSerivce cartSerivce)
         {
             _productService = productService;
             _regionManager = regionManager;
+            _userService = userService;
+            _cartSerivce = cartSerivce;
             DecreaseStepperCommand = new DelegateCommand(OnDecreaseStepper, CanDecreaseStepper);
             IncreaseStepperCommand = new DelegateCommand(OnIncreaseStepper);
             AddToCartCommand = new DelegateCommand(OnAddToCart);
@@ -50,6 +56,16 @@ namespace ECommerce.Main.ViewModels
 
         private void OnAddToCart()
         {
+            var cartItem = new CartItem
+            {
+                UserId = _userService.GetUserIdByUsername(Global.UserName.ToString()),
+                ProductId = Product.Id,
+                Product = Product,
+                Quantity = Stepper
+            };
+
+            var result = _cartSerivce.AddCartItem(cartItem);
+
             _regionManager.RequestNavigate(Regions.MainRegion, ViewsNames.ProductsView);
         }
 

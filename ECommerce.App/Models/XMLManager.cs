@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 
@@ -18,6 +17,17 @@ namespace ECommerce.Main.Models
             reader.Close();
 
             return data;
+        }
+
+        public void Save<T>(string filename, T data)
+        {
+            var path = $@"{GetCurrentDirectory()}\{filename}.xml";
+            XmlSerializer serializer = new XmlSerializer(typeof(T));
+
+            TextWriter writer = new StreamWriter(path);
+
+            serializer.Serialize(writer, data);
+            writer.Close();
         }
 
         private string GetCurrentDirectory()

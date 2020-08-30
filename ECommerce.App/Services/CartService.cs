@@ -9,6 +9,7 @@ namespace ECommerce.Main.Services
 {
     public class CartService : ICartSerivce
     {
+        private readonly IXMLManager _xmlManager;
         IList<CartItem> CartItems { get; set; } = new List<CartItem>()
         {
             new CartItem
@@ -105,9 +106,28 @@ namespace ECommerce.Main.Services
             }
         };
 
+        public CartService(IXMLManager xmlManager)
+        {
+            _xmlManager = xmlManager;
+        }
+
         public bool AddCartItem(CartItem cartItem)
         {
-            return true;
+            try
+            {
+                var cartItems = new CartItems
+                {
+                    CartItemsList = new List<CartItem> { cartItem }
+                };
+
+                _xmlManager.Save<CartItems>("CartItems", cartItems);
+                return true;
+            }
+            catch (Exception x)
+            {
+                Console.WriteLine(x);
+                return false;
+            }
         }
 
         public ObservableCollection<CartItem> GetCartItems(int uid)
