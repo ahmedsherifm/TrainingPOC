@@ -2,9 +2,9 @@
 using ECommerce.Core.Constants;
 using ECommerce.Main.Services;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
-using Prism.Services.Dialogs;
 
 namespace ECommerce.Main.ViewModels.Shared
 {
@@ -13,6 +13,7 @@ namespace ECommerce.Main.ViewModels.Shared
         private readonly IRegionManager _regionManager;
         private readonly IUserService _userService;
         private readonly ICartSerivce _cartSerivce;
+        private readonly IEventAggregator _eventAggregator;
         private string _username;
         private int _numberOfCartItems;
         
@@ -28,16 +29,27 @@ namespace ECommerce.Main.ViewModels.Shared
             set { SetProperty(ref _numberOfCartItems, value); }
         }
 
-        public NavbarViewModel(IRegionManager regionManager, IUserService userService, ICartSerivce cartSerivce)
+        public NavbarViewModel(IRegionManager regionManager, IUserService userService,
+            ICartSerivce cartSerivce, IEventAggregator eventAggregator)
         {
             Username = Global.UserName.ToString();
+
             CartCommand = new DelegateCommand(OnCartCommand);
             DotsCommand = new DelegateCommand(OnDotsCommand);
+
             _regionManager = regionManager;
             _userService = userService;
             _cartSerivce = cartSerivce;
+            _eventAggregator = eventAggregator;
 
-            OnAppearing();
+            _eventAggregator.GetEvent<MessageSentEvent>().Subscribe(OnAddToCartMessageReceived);
+
+            LoadNumberOfCartItems();
+        }
+
+        private void OnAddToCartMessageReceived(string message)
+        {
+            LoadNumberOfCartItems();
         }
 
         public DelegateCommand CartCommand { get; private set; }
@@ -55,9 +67,9 @@ namespace ECommerce.Main.ViewModels.Shared
             _regionManager.RequestNavigate(Regions.MainRegion, ViewsNames.CartView);
         }
 
-        private void OnAppearing()
+        private void LoadNumberOfCartItems()
         {
-            var userId = _userService.GetUserIdByUsername(Username);
+            var userId = (int)Global.UserId;
             NumberOfCartItems = _cartSerivce.GetNumberOfCartItems(userId);
         }
     }

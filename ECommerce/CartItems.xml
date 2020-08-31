@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CartItems xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <CartItem>
+    <UserId>1</UserId>
+    <ProductId>2</ProductId>
+    <Quantity>3</Quantity>
+    <Product>
+      <Id>2</Id>
+      <Name>LG Smart TV 43"</Name>
+      <Description>This LG LED TV offers unmatched entertainment. With the resolution of 1920 x 1080 pixels, this 43inch TV renders clear and detailed images so that you don’t miss out even on minutest of details. The top-notch dynamic color processing technology brings images to life. Thanks to the Virtual surround sound, this LG TV recreates the exceptional sound, thereby making your favorite sporting events all the more fun. With HDMI and USB port, you can connect entertainment devices to your TV. The eye-catching frames add a touch of modernity to this LG FHD TV. With built-in HD receiver, you are set to enjoy HD content immediately without any additional external support. The slim construction of this LG TV makes it a must-have for your living room.</Description>
+      <Price>1000</Price>
+      <Quantity>2</Quantity>
+      <ImagePosterUrl>https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg</ImagePosterUrl>
+      <Images>
+        <Image>https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg</Image>
+        <Image>https://thegoodguys.sirv.com/products/50052624/50052624_562897.PNG</Image>
+        <Image>https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg</Image>
+        <Image>https://thegoodguys.sirv.com/products/50052624/50052624_562897.PNG</Image>
+        <Image>https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg</Image>
+      </Images>
+    </Product>
+  </CartItem>
+  <CartItem>
+    <UserId>1</UserId>
+    <ProductId>1</ProductId>
+    <Quantity>2</Quantity>
+    <Product>
+      <Id>1</Id>
+      <Name>LG Smart TV 21"</Name>
+      <Description>This LG LED TV offers unmatched entertainment. With the resolution of 1920 x 1080 pixels, this 43inch TV renders clear and detailed images so that you don’t miss out even on minutest of details. The top-notch dynamic color processing technology brings images to life. Thanks to the Virtual surround sound, this LG TV recreates the exceptional sound, thereby making your favorite sporting events all the more fun. With HDMI and USB port, you can connect entertainment devices to your TV. The eye-catching frames add a touch of modernity to this LG FHD TV. With built-in HD receiver, you are set to enjoy HD content immediately without any additional external support. The slim construction of this LG TV makes it a must-have for your living room.</Description>
+      <Price>300</Price>
+      <Quantity>6</Quantity>
+      <ImagePosterUrl>https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg</ImagePosterUrl>
+      <Images>
+        <Image>https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg</Image>
+        <Image>https://thegoodguys.sirv.com/products/50052624/50052624_562897.PNG</Image>
+        <Image>https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg</Image>
+        <Image>https://thegoodguys.sirv.com/products/50052624/50052624_562897.PNG</Image>
+        <Image>https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg</Image>
+      </Images>
+    </Product>
+  </CartItem>
+</CartItems>
