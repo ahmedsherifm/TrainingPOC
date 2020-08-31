@@ -29,7 +29,8 @@
                 Grid.Row="0"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
-                Text="{Binding Message}" />
+                Text="{Binding Message}"
+                TextWrapping="Wrap" />
             <Button
                 Grid.Row="1"
                 Width="75"

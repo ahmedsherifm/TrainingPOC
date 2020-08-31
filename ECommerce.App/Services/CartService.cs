@@ -12,6 +12,7 @@ namespace ECommerce.Main.Services
         private readonly IXMLManager _xmlManager;
 
         IList<CartItem> CartItems { get; set; } = new List<CartItem>();
+        List<CartItem> AllCartItems { get; set; } = new List<CartItem>();
 
         public CartService(IXMLManager xmlManager)
         {
@@ -28,19 +29,17 @@ namespace ECommerce.Main.Services
                 var existCartItem = CartItems.FirstOrDefault(ci => ci.ProductId == cartItem.ProductId &&
                                                                       ci.UserId == cartItem.UserId);
                 if(existCartItem == null) 
-                { 
                     CartItems.Add(cartItem);
-                }
                 else
-                {
                     existCartItem.Quantity += cartItem.Quantity;
-                }
+
+                AllCartItems.RemoveAll(ci => ci.UserId == cartItem.UserId);
+                AllCartItems.AddRange(CartItems);
 
                 var cartItems = new CartItems
                 {
-                    CartItemsList = new List<CartItem>(CartItems)
+                    CartItemsList = new List<CartItem>(AllCartItems)
                 };
-
                 _xmlManager.Save("CartItems", cartItems);
                 return true;
             }
@@ -53,8 +52,8 @@ namespace ECommerce.Main.Services
 
         public ObservableCollection<CartItem> GetCartItems(int uid)
         {
-            var allCartItems = _xmlManager.Load<CartItems>("CartItems").CartItemsList;
-            CartItems = allCartItems.Where(ci => ci.UserId == uid)
+            AllCartItems = _xmlManager.Load<CartItems>("CartItems").CartItemsList;
+            CartItems = AllCartItems.Where(ci => ci.UserId == uid)
                         .Select(ci =>
                         {
                             if (ci.Quantity <= ci.Product.Quantity)
@@ -76,7 +75,46 @@ namespace ECommerce.Main.Services
 
         public bool RemoveItemFromCart(CartItem cartItem)
         {
-            return true;
+            try
+            {
+                CartItems.Remove(cartItem);
+
+                AllCartItems.RemoveAll(ci => ci.UserId == cartItem.UserId);
+                AllCartItems.AddRange(CartItems);
+
+                var cartItems = new CartItems
+                {
+                    CartItemsList = new List<CartItem>(AllCartItems)
+                };
+                _xmlManager.Save("CartItems", cartItems);
+                return true;
+            }
+            catch (Exception x)
+            {
+
+                return false;
+            }
         }
+
+        public bool SubmitOrder()
+        {
+            try
+            {
+                CartItems.Clear();
+                AllCartItems.RemoveAll(ci => ci.UserId == (int)Global.UserId);
+
+                var cartItems = new CartItems
+                {
+                    CartItemsList = new List<CartItem>(AllCartItems)
+                };
+                _xmlManager.Save("CartItems", cartItems);
+                return true;
+            }
+            catch (Exception x)
+            {
+                return false;
+            }
+        }
+
     }
 }

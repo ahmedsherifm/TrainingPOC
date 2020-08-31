@@ -13,5 +13,6 @@ namespace ECommerce.Main.Services
 
         bool RemoveItemFromCart(CartItem cartItem);
 
+        bool SubmitOrder();
     }
 }

@@ -22,5 +22,10 @@ namespace ECommerce.Main.Views
         {
             InitializeComponent();
         }
+
+        private void listview_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            listview.SelectedItem = null;
+        }
     }
 }

@@ -15,10 +15,9 @@ namespace ECommerce.Main.ViewModels
         private Product product;
         private readonly IProductService _productService;
         private readonly IRegionManager _regionManager;
-        private readonly IUserService _userService;
         private readonly ICartSerivce _cartSerivce;
-        private readonly IEventAggregator _eventAggregator;
         private readonly IDialogService _dialogService;
+        private readonly IEventAggregator _eventAggregator;
 
         public Product Product
         {
@@ -37,15 +36,14 @@ namespace ECommerce.Main.ViewModels
             }
         }
 
-        public ProductDetailsViewModel(IProductService productService, IRegionManager regionManager,
-            IUserService userService, ICartSerivce cartSerivce, IEventAggregator eventAggregator, IDialogService dialogService)
+        public ProductDetailsViewModel(IProductService productService, IRegionManager regionManager, 
+            ICartSerivce cartSerivce, IDialogService dialogService, IEventAggregator eventAggregator)
         {
             _productService = productService;
             _regionManager = regionManager;
-            _userService = userService;
             _cartSerivce = cartSerivce;
-            _eventAggregator = eventAggregator;
             _dialogService = dialogService;
+            _eventAggregator = eventAggregator;
 
             DecreaseStepperCommand = new DelegateCommand(OnDecreaseStepper, CanDecreaseStepper);
             IncreaseStepperCommand = new DelegateCommand(OnIncreaseStepper);
@@ -70,11 +68,12 @@ namespace ECommerce.Main.ViewModels
                 Quantity = Stepper
             };
 
-            var result = _cartSerivce.AddCartItem(cartItem);
+            var isAdded = _cartSerivce.AddCartItem(cartItem);
 
-            if (result)
+            if (isAdded)
             {
-                _eventAggregator.GetEvent<MessageSentEvent>().Publish("Cart Item Added");
+                _eventAggregator.GetEvent<MessageSentEvent<string>>().Publish("Cart Updated Successfully");
+                _dialogService.ShowMessageDialog("Cart Updated Successfully", null);
                 _regionManager.RequestNavigate(Regions.MainRegion, ViewsNames.ProductsView);
             }
             else
