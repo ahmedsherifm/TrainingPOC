@@ -3,9 +3,10 @@ using ECommerce.Core.Constants;
 using ECommerce.Main.Models;
 using ECommerce.Main.Services;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
-using System;
+using Prism.Services.Dialogs;
 
 namespace ECommerce.Main.ViewModels
 {
@@ -16,6 +17,8 @@ namespace ECommerce.Main.ViewModels
         private readonly IRegionManager _regionManager;
         private readonly IUserService _userService;
         private readonly ICartSerivce _cartSerivce;
+        private readonly IEventAggregator _eventAggregator;
+        private readonly IDialogService _dialogService;
 
         public Product Product
         {
@@ -35,12 +38,15 @@ namespace ECommerce.Main.ViewModels
         }
 
         public ProductDetailsViewModel(IProductService productService, IRegionManager regionManager,
-            IUserService userService, ICartSerivce cartSerivce)
+            IUserService userService, ICartSerivce cartSerivce, IEventAggregator eventAggregator, IDialogService dialogService)
         {
             _productService = productService;
             _regionManager = regionManager;
             _userService = userService;
             _cartSerivce = cartSerivce;
+            _eventAggregator = eventAggregator;
+            _dialogService = dialogService;
+
             DecreaseStepperCommand = new DelegateCommand(OnDecreaseStepper, CanDecreaseStepper);
             IncreaseStepperCommand = new DelegateCommand(OnIncreaseStepper);
             AddToCartCommand = new DelegateCommand(OnAddToCart);
@@ -58,7 +64,7 @@ namespace ECommerce.Main.ViewModels
         {
             var cartItem = new CartItem
             {
-                UserId = _userService.GetUserIdByUsername(Global.UserName.ToString()),
+                UserId = (int)Global.UserId,
                 ProductId = Product.Id,
                 Product = Product,
                 Quantity = Stepper
@@ -66,7 +72,15 @@ namespace ECommerce.Main.ViewModels
 
             var result = _cartSerivce.AddCartItem(cartItem);
 
-            _regionManager.RequestNavigate(Regions.MainRegion, ViewsNames.ProductsView);
+            if (result)
+            {
+                _eventAggregator.GetEvent<MessageSentEvent>().Publish("Cart Item Added");
+                _regionManager.RequestNavigate(Regions.MainRegion, ViewsNames.ProductsView);
+            }
+            else
+            {
+                _dialogService.ShowMessageDialog("Something went wrong", null);
+            }
         }
 
         private void OnIncreaseStepper()
