@@ -3,7 +3,7 @@ using System;
 
 namespace ECommerce.Core
 {
-    public static class IDialogServiceExtensions
+    public static class DialogServiceExtensions
     {
         public static void ShowMessageDialog(this IDialogService dialogService, string message, Action<IDialogResult> callBack)
         {

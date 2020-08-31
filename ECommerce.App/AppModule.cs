@@ -1,4 +1,5 @@
-﻿using ECommerce.Main.Models;
+﻿using ECommerce.Core.Constants;
+using ECommerce.Main.Models;
 using ECommerce.Main.Services;
 using ECommerce.Main.Views;
 using Prism.Ioc;
@@ -18,7 +19,7 @@ namespace ECommerce.Main
 
         public void OnInitialized(IContainerProvider containerProvider)
         {
-            _regionManager.RegisterViewWithRegion("MainRegion", typeof(LoginView));
+            _regionManager.RegisterViewWithRegion(Regions.MainRegion, typeof(LoginView));
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)

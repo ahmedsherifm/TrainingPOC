@@ -2,7 +2,7 @@
 
 namespace ECommerce.Core
 {
-    public class MessageSentEvent: PubSubEvent<string>
+    public class MessageSentEvent<T>: PubSubEvent<T>
     {
 
     }

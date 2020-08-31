@@ -1,10 +1,12 @@
 ﻿using ECommerce.Core;
 using ECommerce.Core.Constants;
+using ECommerce.Main.Models;
 using ECommerce.Main.Services;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
+using System;
 
 namespace ECommerce.Main.ViewModels.Shared
 {
@@ -42,14 +44,20 @@ namespace ECommerce.Main.ViewModels.Shared
             _cartSerivce = cartSerivce;
             _eventAggregator = eventAggregator;
 
-            _eventAggregator.GetEvent<MessageSentEvent>().Subscribe(OnAddToCartMessageReceived);
+            _eventAggregator.GetEvent<MessageSentEvent<CartItem>>().Subscribe(OnRemoveItemFromCart);
+            _eventAggregator.GetEvent<MessageSentEvent<string>>().Subscribe(OnAddCartItem);
 
             LoadNumberOfCartItems();
         }
 
-        private void OnAddToCartMessageReceived(string message)
+        private void OnAddCartItem(string message)
         {
             LoadNumberOfCartItems();
+        }
+
+        private void OnRemoveItemFromCart(CartItem cartItem)
+        {
+            NumberOfCartItems -= cartItem.Quantity;
         }
 
         public DelegateCommand CartCommand { get; private set; }
