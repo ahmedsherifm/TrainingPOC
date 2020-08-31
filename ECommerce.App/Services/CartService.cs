@@ -95,5 +95,26 @@ namespace ECommerce.Main.Services
                 return false;
             }
         }
+
+        public bool SubmitOrder()
+        {
+            try
+            {
+                CartItems.Clear();
+                AllCartItems.RemoveAll(ci => ci.UserId == (int)Global.UserId);
+
+                var cartItems = new CartItems
+                {
+                    CartItemsList = new List<CartItem>(AllCartItems)
+                };
+                _xmlManager.Save("CartItems", cartItems);
+                return true;
+            }
+            catch (Exception x)
+            {
+                return false;
+            }
+        }
+
     }
 }
