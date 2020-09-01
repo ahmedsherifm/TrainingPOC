@@ -6,17 +6,18 @@ using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
+using System;
 
 namespace ECommerce.ViewModels.Shared
 {
-    public class NavbarViewModel: BindableBase
+    public class NavbarViewModel: BindableBase, INavigationAware
     {
         private readonly IRegionManager _regionManager;
         private readonly ICartSerivce _cartSerivce;
         private readonly IEventAggregator _eventAggregator;
         private string _username;
         private int _numberOfCartItems;
-        
+
         public string Username
         {
             get { return _username; }
@@ -31,10 +32,10 @@ namespace ECommerce.ViewModels.Shared
 
         public NavbarViewModel(IRegionManager regionManager, ICartSerivce cartSerivce, IEventAggregator eventAggregator)
         {
-            Username = Global.UserName.ToString();
-
             CartCommand = new DelegateCommand(OnCartCommand);
-            DotsCommand = new DelegateCommand(OnDotsCommand);
+            HomeCommand = new DelegateCommand(OnHomeCommand);
+            FilterCommand = new DelegateCommand(OnFilterCommand);
+            LogoutCommand = new DelegateCommand(OnLogoutCommand);
 
             _regionManager = regionManager;
             _cartSerivce = cartSerivce;
@@ -42,6 +43,12 @@ namespace ECommerce.ViewModels.Shared
 
             _eventAggregator.GetEvent<MessageSentEvent<CartItem>>().Subscribe(OnRemoveItemFromCart);
             _eventAggregator.GetEvent<MessageSentEvent<string>>().Subscribe(OnAddCartItem);
+        }
+
+        private void Init()
+        {
+            Username = Global.UserName.ToString();
+            _cartSerivce.LoadCartItems();
 
             LoadNumberOfCartItems();
         }
@@ -57,9 +64,11 @@ namespace ECommerce.ViewModels.Shared
         }
 
         public DelegateCommand CartCommand { get; private set; }
-        public DelegateCommand DotsCommand { get; private set; }
+        public DelegateCommand HomeCommand { get; private set; }
+        public DelegateCommand FilterCommand { get; private set; }
+        public DelegateCommand LogoutCommand { get; private set; }
 
-        private void OnDotsCommand()
+        private void OnHomeCommand()
         {
             /// TODO: open context menu with options
             
@@ -71,10 +80,33 @@ namespace ECommerce.ViewModels.Shared
             _regionManager.RequestNavigate(Regions.ContentRegion, ViewsNames.CartView);
         }
 
+        private void OnLogoutCommand()
+        {
+            _regionManager.RequestNavigate(Regions.MainRegion, ViewsNames.LoginView);
+        }
+
+        private void OnFilterCommand()
+        {
+        }
+
         private void LoadNumberOfCartItems()
         {
             var userId = (int)Global.UserId;
             NumberOfCartItems = _cartSerivce.GetNumberOfCartItems(userId);
+        }
+
+        public void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            Init();
+        }
+
+        public bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            return true;
+        }
+
+        public void OnNavigatedFrom(NavigationContext navigationContext)
+        {
         }
     }
 }

@@ -14,7 +14,74 @@
     <Grid
         HorizontalAlignment="Stretch"
         VerticalAlignment="Top"
-        Background="{StaticResource appColor}">
+        Background="#A1FF75">
+        <DockPanel LastChildFill="False">
+            <TextBlock
+                Margin="5"
+                DockPanel.Dock="Left"
+                FontSize="14"
+                FontWeight="Bold"
+                Text="{Binding Username}" />
+
+            <Menu
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Background="{StaticResource appColor}"
+                DockPanel.Dock="Right">
+                <MenuItem>
+                    <MenuItem.Icon>
+                        <Image
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Source="../../Images/dots.png" />
+                    </MenuItem.Icon>
+                    <MenuItem Command="{Binding HomeCommand}" Header="Home" />
+                    <MenuItem Command="{Binding FilterCommand}" Header="Filter" />
+                    <Separator />
+                    <MenuItem Command="{Binding LogoutCommand}" Header="Logout" />
+                </MenuItem>
+            </Menu>
+
+            <Grid
+                HorizontalAlignment="Right"
+                core:ClickCommand.Command="{Binding CartCommand}"
+                DockPanel.Dock="Right">
+                <Image
+                    Width="20"
+                    Height="20"
+                    Margin="5"
+                    HorizontalAlignment="Right"
+                    Source="../../Images/cart.png" />
+
+                <Grid Margin="0,0,15,0" Visibility="{Binding NumberOfCartItems, Converter={StaticResource IntegerToVisibilityConverter}}">
+                    <Ellipse
+                        Width="20"
+                        Height="20"
+                        Fill="Red"
+                        Stroke="White" />
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Foreground="White"
+                        Text="{Binding NumberOfCartItems}" />
+                </Grid>
+            </Grid>
+        </DockPanel>
+        <!--<Menu
+            Height="25"
+            HorizontalAlignment="Right"
+            Background="#A1FF75">
+            <MenuItem>
+                <MenuItem.Icon>
+                    <Image Source="../../Images/dots.png" />
+                </MenuItem.Icon>
+                <MenuItem Command="{Binding HomeCommand}" Header="Home" />
+                <MenuItem Command="{Binding FilterCommand}" Header="Filter" />
+                <Separator />
+                <MenuItem Command="{Binding LogoutCommand}" Header="Logout" />
+            </MenuItem>
+        </Menu>
+
         <TextBlock
             Margin="5"
             HorizontalAlignment="Left"
@@ -22,7 +89,7 @@
             FontWeight="Bold"
             Text="{Binding Username}" />
         <Grid
-            Margin="0,0,25,0"
+            Margin="0,0,40,0"
             HorizontalAlignment="Right"
             core:ClickCommand.Command="{Binding CartCommand}">
             <Image
@@ -44,14 +111,14 @@
                     Foreground="White"
                     Text="{Binding NumberOfCartItems}" />
             </Grid>
-        </Grid>
+        </Grid>-->
 
-        <Image
+        <!--<Image
             Width="20"
             Height="20"
             Margin="0,0,5,0"
             HorizontalAlignment="Right"
             core:ClickCommand.Command="{Binding DotsCommand}"
-            Source="../../Images/dots.png" />
+            Source="../../Images/dots.png" />-->
     </Grid>
 </UserControl>

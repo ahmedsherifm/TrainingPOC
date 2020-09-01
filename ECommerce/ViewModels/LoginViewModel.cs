@@ -58,6 +58,7 @@ namespace ECommerce.ViewModels
             Global.UserName = Username;
 
             _regionManager.RequestNavigate(Regions.MainRegion, ViewsNames.ContainerView);
+            _regionManager.RequestNavigate(Regions.NavbarRegion, ViewsNames.NavbarView);
             _regionManager.RequestNavigate(Regions.ContentRegion, ViewsNames.ProductsView);
         }
 
