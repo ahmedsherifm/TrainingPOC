@@ -6,6 +6,8 @@ using ECommerce.Views;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
+using ECommerce.Repo.Interfaces;
+using ECommerce.Repo.Repositories;
 
 namespace ECommerce
 {
@@ -37,6 +39,11 @@ namespace ECommerce
             containerRegistry.RegisterSingleton<IUserService, UserService>();
             containerRegistry.RegisterSingleton<IXMLManager, XMLManager>();
             containerRegistry.RegisterSingleton<ICartSerivce, CartService>();
+
+            // repositories
+            containerRegistry.RegisterSingleton<IUserRepository, UserRepository>();
+            containerRegistry.RegisterSingleton<IProductRepository, ProductRepository>();
+            containerRegistry.RegisterSingleton<ICartRepository, CartRepository>();
         }
     }
 }

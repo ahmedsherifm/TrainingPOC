@@ -1,24 +1,26 @@
 ﻿using ECommerce.Core;
 using ECommerce.DAL.Models;
-using ECommerce.DAL.XMLManager;
 using ECommerce.Business.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using ECommerce.Repo.Interfaces;
 
 namespace ECommerce.Business.Services
 {
     public class CartService : ICartSerivce
     {
-        private readonly IXMLManager _xmlManager;
+        private readonly ICartRepository _cartRepository;
 
-        IList<CartItem> CartItems { get; set; } = new List<CartItem>();
+        List<CartItem> CartItems { get; set; } = new List<CartItem>();
         List<CartItem> AllCartItems { get; set; } = new List<CartItem>();
 
-        public CartService(IXMLManager xmlManager)
+        public CartService(ICartRepository cartRepository)
         {
-            _xmlManager = xmlManager;
+            _cartRepository = cartRepository;
+
+            AllCartItems = _cartRepository.LoadCartItems().ToList();
 
             var userId = (int)Global.UserId;
             GetCartItems(userId);
@@ -26,35 +28,21 @@ namespace ECommerce.Business.Services
 
         public bool AddCartItem(CartItem cartItem)
         {
-            try
-            {
-                var existCartItem = CartItems.FirstOrDefault(ci => ci.ProductId == cartItem.ProductId &&
-                                                                      ci.UserId == cartItem.UserId);
-                if(existCartItem == null) 
-                    CartItems.Add(cartItem);
-                else
-                    existCartItem.Quantity += cartItem.Quantity;
+            var existCartItem = CartItems.FirstOrDefault(ci => ci.ProductId == cartItem.ProductId &&
+                                                                  ci.UserId == cartItem.UserId);
+            if (existCartItem == null)
+                CartItems.Add(cartItem);
+            else
+                existCartItem.Quantity += cartItem.Quantity;
 
-                AllCartItems.RemoveAll(ci => ci.UserId == cartItem.UserId);
-                AllCartItems.AddRange(CartItems);
+            AllCartItems.RemoveAll(ci => ci.UserId == cartItem.UserId);
+            AllCartItems.AddRange(CartItems);
 
-                var cartItems = new CartItems
-                {
-                    CartItemsList = new List<CartItem>(AllCartItems)
-                };
-                _xmlManager.Save("CartItems", cartItems);
-                return true;
-            }
-            catch (Exception x)
-            {
-                Console.WriteLine(x);
-                return false;
-            }
+            return _cartRepository.SaveCartItems(AllCartItems);
         }
 
         public ObservableCollection<CartItem> GetCartItems(int uid)
         {
-            AllCartItems = _xmlManager.Load<CartItems>("CartItems").CartItemsList;
             CartItems = AllCartItems.Where(ci => ci.UserId == uid)
                         .Select(ci =>
                         {
@@ -77,45 +65,20 @@ namespace ECommerce.Business.Services
 
         public bool RemoveItemFromCart(CartItem cartItem)
         {
-            try
-            {
-                CartItems.Remove(cartItem);
+            CartItems.Remove(cartItem);
 
-                AllCartItems.RemoveAll(ci => ci.UserId == cartItem.UserId);
-                AllCartItems.AddRange(CartItems);
+            AllCartItems.RemoveAll(ci => ci.UserId == cartItem.UserId);
+            AllCartItems.AddRange(CartItems);
 
-                var cartItems = new CartItems
-                {
-                    CartItemsList = new List<CartItem>(AllCartItems)
-                };
-                _xmlManager.Save("CartItems", cartItems);
-                return true;
-            }
-            catch (Exception x)
-            {
-
-                return false;
-            }
+            return _cartRepository.SaveCartItems(AllCartItems);
         }
 
         public bool SubmitOrder()
         {
-            try
-            {
-                CartItems.Clear();
-                AllCartItems.RemoveAll(ci => ci.UserId == (int)Global.UserId);
+            CartItems.Clear();
+            AllCartItems.RemoveAll(ci => ci.UserId == (int)Global.UserId);
 
-                var cartItems = new CartItems
-                {
-                    CartItemsList = new List<CartItem>(AllCartItems)
-                };
-                _xmlManager.Save("CartItems", cartItems);
-                return true;
-            }
-            catch (Exception x)
-            {
-                return false;
-            }
+            return _cartRepository.SaveCartItems(AllCartItems);
         }
 
     }

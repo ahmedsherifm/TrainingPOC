@@ -3,18 +3,17 @@ using ECommerce.DAL.XMLManager;
 using ECommerce.Business.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using ECommerce.Repo.Interfaces;
 
 namespace ECommerce.Business.Services
 {
     public class ProductService : IProductService
     {
-        private readonly IXMLManager _xmlManager;
-        private IList<Product> _products = new List<Product>();
+        private List<Product> _products = new List<Product>();
 
-        public ProductService(IXMLManager xmlManager)
+        public ProductService(IProductRepository productRepository)
         {
-            _xmlManager = xmlManager;
-            LoadProductsFromXML();
+            _products = productRepository.LoadProducts().ToList();
         }
 
         public Product GetProductById(int id)
@@ -32,12 +31,6 @@ namespace ECommerce.Business.Services
             return GetProductsOrderedByPrice()
                 .Where(p => p.Price >= minPrice && p.Price <= maxPrice)
                 .ToList();
-        }
-
-        private void LoadProductsFromXML()
-        {
-            var products = _xmlManager.Load<Products>("Products");
-            _products = products.ProductList;
         }
     }
 }

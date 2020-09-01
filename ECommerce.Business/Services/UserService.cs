@@ -3,19 +3,18 @@ using ECommerce.DAL.XMLManager;
 using ECommerce.Business.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using ECommerce.Repo.Interfaces;
 
 namespace ECommerce.Business.Services
 {
     public class UserService : IUserService
     {
-        private readonly IXMLManager _xmlManager;
         private List<User> _users = new List<User>();
         private User _currentUser;
 
-        public UserService(IXMLManager xmlManager)
+        public UserService(IUserRepository userRepository)
         {
-            _xmlManager = xmlManager;
-            LoadUsersFromXML();
+            _users = userRepository.LoadUsers().ToList();
         }
 
         public int GetUserIdByUsername(string username)
@@ -37,12 +36,6 @@ namespace ECommerce.Business.Services
             }
 
             return false;
-        }
-
-        private void LoadUsersFromXML()
-        {
-            var users = _xmlManager.Load<Users>("Users");
-            _users = users.UsersList;
         }
     }
 }
