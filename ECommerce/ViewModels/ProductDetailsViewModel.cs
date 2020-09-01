@@ -74,7 +74,7 @@ namespace ECommerce.ViewModels
             {
                 _eventAggregator.GetEvent<MessageSentEvent<string>>().Publish("Cart Updated Successfully");
                 _dialogService.ShowMessageDialog("Cart Updated Successfully", null);
-                _regionManager.RequestNavigate(Regions.MainRegion, ViewsNames.ProductsView);
+                _regionManager.RequestNavigate(Regions.ContentRegion, ViewsNames.ProductsView);
             }
             else
             {

@@ -62,7 +62,7 @@ namespace ECommerce.ViewModels
             {
                 _eventAggregator.GetEvent<MessageSentEvent<string>>().Publish("Order Submitted Successfully");
                 _dialogService.ShowMessageDialog("Order Submitted Successfully", null);
-                _regionManager.RequestNavigate(Regions.MainRegion, ViewsNames.ProductsView);
+                _regionManager.RequestNavigate(Regions.ContentRegion, ViewsNames.ProductsView);
             }
             else
             {

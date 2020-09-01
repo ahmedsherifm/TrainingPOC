@@ -63,12 +63,12 @@ namespace ECommerce.ViewModels.Shared
         {
             /// TODO: open context menu with options
             
-            _regionManager.RequestNavigate(Regions.MainRegion, ViewsNames.ProductsView);
+            _regionManager.RequestNavigate(Regions.ContentRegion, ViewsNames.ProductsView);
         }
 
         private void OnCartCommand()
         {
-            _regionManager.RequestNavigate(Regions.MainRegion, ViewsNames.CartView);
+            _regionManager.RequestNavigate(Regions.ContentRegion, ViewsNames.CartView);
         }
 
         private void LoadNumberOfCartItems()

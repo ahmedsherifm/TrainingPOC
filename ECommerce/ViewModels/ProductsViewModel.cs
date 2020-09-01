@@ -42,7 +42,7 @@ namespace ECommerce.ViewModels
             var param = new NavigationParameters();
             param.Add("productId", SelectedProduct.Id);
 
-            _regionManager.RequestNavigate(Regions.MainRegion, ViewsNames.ProductDetailsView, param);
+            _regionManager.RequestNavigate(Regions.ContentRegion, ViewsNames.ProductDetailsView, param);
         }
 
         public DelegateCommand SelectProductCommand { get; private set; }
