@@ -3,7 +3,6 @@ using Prism.DryIoc;
 using System.Windows;
 using ECommerce.Views;
 using Prism.Modularity;
-using ECommerce.Main;
 using ECommerce.Dialogs;
 
 namespace ECommerce
