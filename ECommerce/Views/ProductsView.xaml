@@ -2,8 +2,6 @@
     x:Class="ECommerce.Views.ProductsView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:convert="clr-namespace:ECommerce.Converters"
-    xmlns:core="clr-namespace:ECommerce.Core;assembly=ECommerce.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:local="clr-namespace:ECommerce.Views"
@@ -15,9 +13,6 @@
     prism:ViewModelLocator.AutoWireViewModel="True"
     Background="White"
     mc:Ignorable="d">
-    <UserControl.Resources>
-        <convert:DecimalToCurrencyStringConverter x:Key="DecimalToCurrencyStringConverter" />
-    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

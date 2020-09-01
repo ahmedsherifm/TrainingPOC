@@ -2,7 +2,6 @@
     x:Class="ECommerce.Views.ProductDetailsView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:convert="clr-namespace:ECommerce.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:ECommerce.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -13,9 +12,6 @@
     prism:ViewModelLocator.AutoWireViewModel="True"
     Background="White"
     mc:Ignorable="d">
-    <UserControl.Resources>
-        <convert:DecimalToCurrencyStringConverter x:Key="DecimalToCurrencyStringConverter" />
-    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -95,7 +91,7 @@
                     Width="100"
                     Margin="0,0,10,0"
                     HorizontalAlignment="Right"
-                    Background="#A1FF75"
+                    Background="{StaticResource appColor}"
                     BorderBrush="DimGray"
                     BorderThickness="2"
                     Command="{Binding AddToCartCommand}"
