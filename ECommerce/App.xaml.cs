@@ -20,6 +20,7 @@ namespace ECommerce
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterDialog<MessageDialog, MessageDialogViewModel>();
+            containerRegistry.RegisterDialog<FilterDialog, FilterDialogViewModel>();
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)

@@ -1,5 +1,4 @@
-﻿using ECommerce.Core;
-using ECommerce.Core.Constants;
+﻿using ECommerce.Core.Constants;
 using ECommerce.DAL.Models;
 using ECommerce.Business.Interfaces;
 using Prism.Commands;
@@ -7,6 +6,8 @@ using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
 using System;
+using ECommerce.Core;
+using ECommerce.Events;
 
 namespace ECommerce.ViewModels.Shared
 {
@@ -17,6 +18,7 @@ namespace ECommerce.ViewModels.Shared
         private readonly IEventAggregator _eventAggregator;
         private string _username;
         private int _numberOfCartItems;
+        private bool _isFilterEnabled;
 
         public string Username
         {
@@ -30,6 +32,12 @@ namespace ECommerce.ViewModels.Shared
             set { SetProperty(ref _numberOfCartItems, value); }
         }
 
+        public bool IsFilterEnabled
+        {
+            get { return _isFilterEnabled; }
+            set { SetProperty(ref _isFilterEnabled, value); }
+        }
+
         public NavbarViewModel(IRegionManager regionManager, ICartSerivce cartSerivce, IEventAggregator eventAggregator)
         {
             CartCommand = new DelegateCommand(OnCartCommand);
@@ -41,8 +49,9 @@ namespace ECommerce.ViewModels.Shared
             _cartSerivce = cartSerivce;
             _eventAggregator = eventAggregator;
 
-            _eventAggregator.GetEvent<MessageSentEvent<CartItem>>().Subscribe(OnRemoveItemFromCart);
-            _eventAggregator.GetEvent<MessageSentEvent<string>>().Subscribe(OnAddCartItem);
+            _eventAggregator.GetEvent<RemoveCartItemEvent>().Subscribe(OnRemoveItemFromCart);
+            _eventAggregator.GetEvent<MessageSentEvent>().Subscribe(OnAddCartItem);
+            _eventAggregator.GetEvent<ShowFilterMenuItemEvent>().Subscribe(OnShowFilterMenuItem);
         }
 
         private void Init()
@@ -51,6 +60,11 @@ namespace ECommerce.ViewModels.Shared
             _cartSerivce.LoadCartItems();
 
             LoadNumberOfCartItems();
+        }
+
+        private void OnShowFilterMenuItem(bool isEnabled)
+        {
+            IsFilterEnabled = isEnabled;
         }
 
         private void OnAddCartItem(string message)
@@ -87,6 +101,7 @@ namespace ECommerce.ViewModels.Shared
 
         private void OnFilterCommand()
         {
+            _eventAggregator.GetEvent<ShowFilterPopupEvent>().Publish();
         }
 
         private void LoadNumberOfCartItems()

@@ -5,6 +5,14 @@ using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
 using System.Collections.Generic;
+using Prism.Events;
+using ECommerce.Events;
+using System;
+using Prism.Services.Dialogs;
+using ECommerce.Dialogs;
+using ECommerce.DTOs;
+using System.Linq;
+using System.Collections.ObjectModel;
 
 namespace ECommerce.ViewModels
 {
@@ -12,9 +20,11 @@ namespace ECommerce.ViewModels
     {
         private readonly IProductService _productService;
         private readonly IRegionManager _regionManager;
+        private readonly IEventAggregator _eventAggregator;
+        private readonly IDialogService _dialogService;
 
-        private IList<Product> _products;
-        public IList<Product> Products
+        private ObservableCollection<Product> _products;
+        public ObservableCollection<Product> Products
         {
             get { return _products; }
             set { SetProperty(ref _products, value); }
@@ -27,11 +37,37 @@ namespace ECommerce.ViewModels
             set { SetProperty(ref _selectedProduct, value); }
         }
 
-        public ProductsViewModel(IProductService productService, IRegionManager regionManager)
+        public ProductFilterDTO ProductFilter { get; set; } = new ProductFilterDTO();
+
+        public ProductsViewModel(IProductService productService, IRegionManager regionManager,
+            IEventAggregator eventAggregator, IDialogService dialogService)
         {
             _productService = productService;
             _regionManager = regionManager;
+            _eventAggregator = eventAggregator;
+            _dialogService = dialogService;
+
             SelectProductCommand = new DelegateCommand(OnSelectProductCommand);
+
+            _eventAggregator.GetEvent<ShowFilterPopupEvent>().Subscribe(ShowFilterPopup);
+        }
+
+        private void ShowFilterPopup()
+        {
+            var param = new DialogParameters();
+            param.Add("productFilter", ProductFilter);
+
+            _dialogService.ShowDialog(nameof(FilterDialog), param, FilterProucts);
+        }
+
+        private void FilterProucts(IDialogResult res)
+        {
+            if(res.Result == ButtonResult.OK)
+            {
+                ProductFilter = res.Parameters.GetValue<ProductFilterDTO>("productFilter");
+                var productsFiltered = _productService.GetProductsOrderedByPriceAndFiltered(ProductFilter.MinPrice, ProductFilter.MaxPrice);
+                Products = new ObservableCollection<Product>(productsFiltered);
+            }
         }
 
         private void OnSelectProductCommand()
@@ -49,7 +85,11 @@ namespace ECommerce.ViewModels
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
-            Products = _productService.GetProductsOrderedByPrice();
+            Products = new ObservableCollection<Product>(_productService.GetProductsOrderedByPrice());
+
+            _eventAggregator.GetEvent<ShowFilterMenuItemEvent>().Publish(true);
+            ProductFilter.MinPrice = (int)Products.Min(p => p.Price);
+            ProductFilter.MaxPrice = (int)Products.Max(p => p.Price);
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
@@ -60,6 +100,8 @@ namespace ECommerce.ViewModels
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
             SelectedProduct = null;
+         
+            _eventAggregator.GetEvent<ShowFilterMenuItemEvent>().Publish(false);
         }
     }
 }
