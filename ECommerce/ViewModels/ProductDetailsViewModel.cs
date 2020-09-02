@@ -8,6 +8,7 @@ using Prism.Mvvm;
 using Prism.Regions;
 using Prism.Services.Dialogs;
 using ECommerce.Events;
+using System;
 
 namespace ECommerce.ViewModels
 {
@@ -37,6 +38,20 @@ namespace ECommerce.ViewModels
             }
         }
 
+        private string _currentImageUrl;
+        public string CurrentImageUrl
+        {
+            get { return _currentImageUrl; }
+            set { SetProperty(ref _currentImageUrl, value); }
+        }
+
+        private int _currentImageUrlIndex = 0;
+        public int CurrentImageUrlIndex
+        {
+            get { return _currentImageUrlIndex; }
+            set { SetProperty(ref _currentImageUrlIndex, value); }
+        }
+
         public ProductDetailsViewModel(IProductService productService, IRegionManager regionManager, 
             ICartSerivce cartSerivce, IDialogService dialogService, IEventAggregator eventAggregator)
         {
@@ -49,6 +64,42 @@ namespace ECommerce.ViewModels
             DecreaseStepperCommand = new DelegateCommand(OnDecreaseStepper, CanDecreaseStepper);
             IncreaseStepperCommand = new DelegateCommand(OnIncreaseStepper);
             AddToCartCommand = new DelegateCommand(OnAddToCart);
+            NextImageCommand = new DelegateCommand(()=>OnChangeImage("next"), () => CanChangeImage("next"));
+            PrevImageCommand = new DelegateCommand(()=>OnChangeImage("prev"), () => CanChangeImage("prev"));
+        }
+
+        public DelegateCommand DecreaseStepperCommand { get; set; }
+        public DelegateCommand IncreaseStepperCommand { get; set; }
+        public DelegateCommand AddToCartCommand { get; set; }
+        public DelegateCommand NextImageCommand { get; set; }
+        public DelegateCommand PrevImageCommand { get; set; }
+
+        private void OnChangeImage(string direction)
+        {
+            switch (direction)
+            {
+                case "next":
+                    CurrentImageUrlIndex++;
+                    break;
+                case "prev":
+                    CurrentImageUrlIndex--;
+                    break;
+            }
+
+            CurrentImageUrl = Product.Images[CurrentImageUrlIndex];
+            RaiseCanExecuteChangedForImagesCommands();
+        }
+
+        private bool CanChangeImage(string direction)
+        {
+            if (Product == null) return false;
+
+            return direction switch
+            {
+                "next" => CurrentImageUrlIndex < Product.Images.Count - 1,
+                "prev" => CurrentImageUrlIndex > 0,
+                _ => false
+            };
         }
 
         private bool CanDecreaseStepper()
@@ -93,9 +144,20 @@ namespace ECommerce.ViewModels
             Stepper--;
         }
 
-        public DelegateCommand DecreaseStepperCommand { get; set; }
-        public DelegateCommand IncreaseStepperCommand { get; set; }
-        public DelegateCommand AddToCartCommand { get; set; }
+        private void RaiseCanExecuteChangedForImagesCommands()
+        {
+            NextImageCommand.RaiseCanExecuteChanged();
+            PrevImageCommand.RaiseCanExecuteChanged();
+        }
+
+        private void InitData(int productId)
+        {
+            Product = _productService.GetProductById(productId);
+            Stepper = 1;
+            CurrentImageUrlIndex = 0;
+            CurrentImageUrl = Product.Images.Count > 0 ? Product.Images[CurrentImageUrlIndex] : Product.ImagePosterUrl;
+            RaiseCanExecuteChangedForImagesCommands();
+        }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
         {
@@ -111,10 +173,7 @@ namespace ECommerce.ViewModels
             if (navigationContext.Parameters.ContainsKey("productId"))
             {
                 var productId = navigationContext.Parameters.GetValue<int>("productId");
-
-                Product = _productService.GetProductById(productId);
-
-                Stepper = 1;
+                InitData(productId);
             }
         }
     }

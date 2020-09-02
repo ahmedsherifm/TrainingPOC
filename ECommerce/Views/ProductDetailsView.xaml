@@ -24,11 +24,36 @@
             Grid.Row="0"
             FontSize="24"
             Text="{Binding Product.Name}" />
-        <Image
-            Grid.Row="1"
-            Width="400"
-            HorizontalAlignment="Center"
-            Source="{Binding Product.ImagePosterUrl}" />
+
+        <Grid Grid.Row="1" Margin="0,5,0,5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Image
+                Grid.ColumnSpan="2"
+                Width="400"
+                Height="300"
+                HorizontalAlignment="Center"
+                Source="{Binding CurrentImageUrl}" />
+            <Button
+                Grid.Row="1"
+                Width="40"
+                Height="20"
+                Command="{Binding PrevImageCommand}"
+                Content="Prev" />
+            <Button
+                Grid.Row="1"
+                Grid.Column="1"
+                Width="40"
+                Height="20"
+                Command="{Binding NextImageCommand}"
+                Content="Next" />
+        </Grid>
         <TextBlock
             Grid.Row="2"
             Margin="5,0,0,0"
