@@ -9,6 +9,7 @@ using Prism.Regions;
 using Prism.Services.Dialogs;
 using System.Collections.ObjectModel;
 using System.Linq;
+using ECommerce.Events;
 
 namespace ECommerce.ViewModels
 {
@@ -60,7 +61,7 @@ namespace ECommerce.ViewModels
             var isSubmitted = _cartSerivce.SubmitOrder();
             if (isSubmitted)
             {
-                _eventAggregator.GetEvent<MessageSentEvent<string>>().Publish("Order Submitted Successfully");
+                _eventAggregator.GetEvent<MessageSentEvent>().Publish("Order Submitted Successfully");
                 _dialogService.ShowMessageDialog("Order Submitted Successfully", null);
                 _regionManager.RequestNavigate(Regions.ContentRegion, ViewsNames.ProductsView);
             }
@@ -77,7 +78,7 @@ namespace ECommerce.ViewModels
 
             if (isDeleted)
             {
-                _eventAggregator.GetEvent<MessageSentEvent<CartItem>>().Publish(cartitem);
+                _eventAggregator.GetEvent<RemoveCartItemEvent>().Publish(cartitem);
                 CartItems.Remove(cartitem);
                 CheckCartItems();
             }

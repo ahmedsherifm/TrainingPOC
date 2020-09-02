@@ -11,5 +11,6 @@ namespace ECommerce.Core.Constants
         public const string ProductDetailsView = "ProductDetailsView";
         public const string CartView = "CartView";
         public const string ContainerView = "ContainerView";
+        public const string NavbarView = "NavbarView";
     }
 }

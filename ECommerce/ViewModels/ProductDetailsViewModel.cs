@@ -7,6 +7,7 @@ using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
 using Prism.Services.Dialogs;
+using ECommerce.Events;
 
 namespace ECommerce.ViewModels
 {
@@ -72,7 +73,7 @@ namespace ECommerce.ViewModels
 
             if (isAdded)
             {
-                _eventAggregator.GetEvent<MessageSentEvent<string>>().Publish("Cart Updated Successfully");
+                _eventAggregator.GetEvent<MessageSentEvent>().Publish("Cart Updated Successfully");
                 _dialogService.ShowMessageDialog("Cart Updated Successfully", null);
                 _regionManager.RequestNavigate(Regions.ContentRegion, ViewsNames.ProductsView);
             }

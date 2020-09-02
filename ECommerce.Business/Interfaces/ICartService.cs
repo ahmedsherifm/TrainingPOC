@@ -14,5 +14,7 @@ namespace ECommerce.Business.Interfaces
         bool RemoveItemFromCart(CartItem cartItem);
 
         bool SubmitOrder();
+
+        void LoadCartItems();
     }
 }

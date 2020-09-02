@@ -20,7 +20,7 @@ namespace ECommerce.Business.Services
         {
             _cartRepository = cartRepository;
 
-            AllCartItems = _cartRepository.LoadCartItems().ToList();
+            LoadCartItems();
 
             var userId = (int)Global.UserId;
             GetCartItems(userId);
@@ -81,5 +81,9 @@ namespace ECommerce.Business.Services
             return _cartRepository.SaveCartItems(AllCartItems);
         }
 
+        public void LoadCartItems()
+        {
+            AllCartItems = _cartRepository.LoadCartItems().ToList();
+        }
     }
 }
