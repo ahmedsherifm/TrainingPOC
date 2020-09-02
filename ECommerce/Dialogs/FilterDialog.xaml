@@ -23,51 +23,74 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <StackPanel Margin="10,20,10,5" Orientation="Horizontal">
+        <Grid Margin="10,20,10,5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
             <TextBlock
+                Margin="15,0,0,0"
                 HorizontalAlignment="Left"
                 FontSize="16"
                 Text="Min. Price" />
             <TextBlock
+                Grid.Column="1"
+                Margin="0,0,15,0"
                 HorizontalAlignment="Right"
                 FontSize="16"
                 Text="{Binding ProductFilter.MinPrice, Converter={StaticResource DecimalToCurrencyStringConverter}}" />
-        </StackPanel>
-        <Slider
-            Grid.Row="1"
-            Margin="10,5,10,20"
-            Maximum="9999"
-            Minimum="1"
-            TickFrequency="1"
-            TickPlacement="None"
-            Value="{Binding ProductFilter.MinPrice}" />
 
-        <StackPanel
-            Grid.Row="2"
-            Margin="10,20,10,5"
-            Orientation="Horizontal">
+            <Slider
+                Grid.Row="1"
+                Grid.ColumnSpan="2"
+                Margin="10,5,10,20"
+                Maximum="9999"
+                Minimum="1"
+                TickFrequency="1"
+                TickPlacement="None"
+                Value="{Binding ProductFilter.MinPrice}" />
+        </Grid>
+
+        <Grid Grid.Row="1" Margin="10,20,10,5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
             <TextBlock
+                Margin="15,0,0,0"
                 HorizontalAlignment="Left"
                 FontSize="16"
                 Text="Max. Price" />
             <TextBlock
+                Grid.Column="1"
+                Margin="0,0,15,0"
                 HorizontalAlignment="Right"
                 FontSize="16"
                 Text="{Binding ProductFilter.MaxPrice, Converter={StaticResource DecimalToCurrencyStringConverter}}" />
-        </StackPanel>
-        <Slider
-            Grid.Row="3"
-            Margin="10,5,10,20"
-            Maximum="9999"
-            Minimum="1"
-            TickFrequency="1"
-            TickPlacement="None"
-            Value="{Binding ProductFilter.MaxPrice}" />
+
+            <Slider
+                Grid.Row="1"
+                Grid.ColumnSpan="2"
+                Margin="10,5,10,20"
+                Maximum="9999"
+                Minimum="1"
+                TickFrequency="1"
+                TickPlacement="None"
+                Value="{Binding ProductFilter.MaxPrice}" />
+        </Grid>
 
         <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
