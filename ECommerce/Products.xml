@@ -1,0 +1,57 @@
+<Products>
+  <Product>
+    <Id>1</Id>
+    <Name>LG Smart TV 21&quot;</Name>
+    <Description>This LG LED TV offers unmatched entertainment. With the resolution of 1920 x 1080 pixels, this 43inch TV renders clear and detailed images so that you don’t miss out even on minutest of details. The top-notch dynamic color processing technology brings images to life. Thanks to the Virtual surround sound, this LG TV recreates the exceptional sound, thereby making your favorite sporting events all the more fun. With HDMI and USB port, you can connect entertainment devices to your TV. The eye-catching frames add a touch of modernity to this LG FHD TV. With built-in HD receiver, you are set to enjoy HD content immediately without any additional external support. The slim construction of this LG TV makes it a must-have for your living room.</Description>
+    <Price>300</Price>
+    <Quantity>6</Quantity>
+    <ImagePosterUrl>https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg</ImagePosterUrl>
+    <Images>
+      <Image>https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg</Image>
+      <Image>https://thegoodguys.sirv.com/products/50052624/50052624_562897.PNG</Image>
+      <Image>https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg</Image>
+      <Image>https://thegoodguys.sirv.com/products/50052624/50052624_562897.PNG</Image>
+      <Image>https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg</Image>
+    </Images>
+  </Product>
+  <Product>
+    <Id>2</Id>
+    <Name>LG Smart TV 43&quot;</Name>
+    <Description>This LG LED TV offers unmatched entertainment. With the resolution of 1920 x 1080 pixels, this 43inch TV renders clear and detailed images so that you don’t miss out even on minutest of details. The top-notch dynamic color processing technology brings images to life. Thanks to the Virtual surround sound, this LG TV recreates the exceptional sound, thereby making your favorite sporting events all the more fun. With HDMI and USB port, you can connect entertainment devices to your TV. The eye-catching frames add a touch of modernity to this LG FHD TV. With built-in HD receiver, you are set to enjoy HD content immediately without any additional external support. The slim construction of this LG TV makes it a must-have for your living room.</Description>
+    <Price>1000</Price>
+    <Quantity>2</Quantity>
+    <ImagePosterUrl>https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg</ImagePosterUrl>
+    <Images>
+      <Image>https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg</Image>
+      <Image>https://thegoodguys.sirv.com/products/50052624/50052624_562897.PNG</Image>
+      <Image>https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg</Image>
+      <Image>https://thegoodguys.sirv.com/products/50052624/50052624_562897.PNG</Image>
+      <Image>https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg</Image>
+    </Images>
+  </Product>
+  <Product>
+    <Id>3</Id>
+    <Name>PS4 Pro</Name>
+    <Description>The PlayStation 4 (PS4) is an eighth-generation home video game console developed by Sony Computer Entertainment. Announced as the successor to the PlayStation 3 in February 2013, it was launched on November 15 in North America, November 29 in Europe, South America and Australia, and on February 22, 2014 in Japan. It competes with Microsoft's Xbox One and Nintendo's Wii U and Switch. Moving away from the more complex Cell microarchitecture of its predecessor, the console features an AMD Accelerated Processing Unit (APU) built upon the x86-64 architecture, which can theoretically peak at 1.84 teraflops; AMD stated that it was the "most powerful" APU it had developed to date. The PlayStation 4 places an increased emphasis on social interaction and integration with other devices and services, including the ability to play games off-console on PlayStation Vita and other supported devices ("Remote Play"), the ability to stream gameplay online or to friends, with them controlling gameplay remotely ("Share Play"). The console's controller was also redesigned and improved over the PlayStation 3, with improved buttons and analog sticks, and an integrated touchpad among other changes. The console also supports HDR10 High-dynamic-range video and playback of 4K resolution multimedia.</Description>
+    <Price>500</Price>
+    <Quantity>100</Quantity>
+    <ImagePosterUrl>https://static.bhphoto.com/images/images2500x2500/1473347129_1280641.jpg</ImagePosterUrl>
+    <Images>
+      <Image>https://static.bhphoto.com/images/images2500x2500/1473347129_1280641.jpg</Image>
+      <Image>https://cdn.pocket-lint.com/r/s/970x/assets/images/138763-games-review-sony-ps4-pro-review-image1-gcolf3ytme.jpg</Image>
+    </Images>
+  </Product>
+  <Product>
+    <Id>4</Id>
+    <Name>Xbox One X</Name>
+    <Description>This LG LED TV offers unmatched entertainment. With the resolution of 1920 x 1080 pixels, this 43inch TV renders clear and detailed images so that you don’t miss out even on minutest of details. The top-notch dynamic color processing technology brings images to life. Thanks to the Virtual surround sound, this LG TV recreates the exceptional sound, thereby making your favorite sporting events all the more fun. With HDMI and USB port, you can connect entertainment devices to your TV. The eye-catching frames add a touch of modernity to this LG FHD TV. With built-in HD receiver, you are set to enjoy HD content immediately without any additional external support. The slim construction of this LG TV makes it a must-have for your living room.</Description>
+    <Price>400</Price>
+    <Quantity>10</Quantity>
+    <ImagePosterUrl>https://product.takwene.com/Files/Catalog/Products/3581/photo_695f6395-6958-4605-9cb2-d1f5610c6578.jpg</ImagePosterUrl>
+    <Images>
+      <Image>https://product.takwene.com/Files/Catalog/Products/3581/photo_695f6395-6958-4605-9cb2-d1f5610c6578.jpg</Image>
+      <Image>https://www.true-gaming.net/home/wp-content/uploads/2017/06/XboxOneX-2.jpg</Image>
+      <Image>https://cdn.shopify.com/s/files/1/0009/5554/7708/products/51C8VwVKcYL._AC_1200x1200.jpg?v=1530907271</Image>
+    </Images>
+  </Product>
+</Products>

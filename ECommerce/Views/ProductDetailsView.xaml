@@ -1,0 +1,119 @@
+﻿<UserControl
+    x:Class="ECommerce.Views.ProductDetailsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ECommerce.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    d:DesignHeight="800"
+    d:DesignWidth="800"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    Background="White"
+    mc:Ignorable="d">
+    <Grid Margin="10,0,5,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock
+            Grid.Row="0"
+            FontSize="24"
+            Text="{Binding Product.Name}" />
+
+        <Grid Grid.Row="1" Margin="0,5,0,5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Image
+                Grid.ColumnSpan="2"
+                Width="400"
+                Height="300"
+                HorizontalAlignment="Center"
+                Source="{Binding CurrentImageUrl}" />
+            <Button
+                Grid.Row="1"
+                Width="40"
+                Height="20"
+                Command="{Binding PrevImageCommand}"
+                Content="Prev" />
+            <Button
+                Grid.Row="1"
+                Grid.Column="1"
+                Width="40"
+                Height="20"
+                Command="{Binding NextImageCommand}"
+                Content="Next" />
+        </Grid>
+        <TextBlock
+            Grid.Row="2"
+            Margin="5,0,0,0"
+            FontSize="16"
+            FontWeight="Bold"
+            Text="{Binding Product.Price, Converter={StaticResource DecimalToCurrencyStringConverter}}" />
+        <TextBlock
+            Grid.Row="3"
+            Width="760"
+            Margin="0,5,0,0"
+            FontSize="12"
+            LineHeight="16"
+            Text="{Binding Product.Description}"
+            TextWrapping="Wrap" />
+
+        <Grid
+            Grid.Row="4"
+            Margin="0,50,0,0"
+            HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <StackPanel
+                Margin="0,0,60,0"
+                HorizontalAlignment="right"
+                Orientation="Horizontal">
+                <Button
+                    Width="40"
+                    Height="40"
+                    Margin="0,0,5,0"
+                    Command="{Binding DecreaseStepperCommand}"
+                    Content="-"
+                    FontSize="18"
+                    FontWeight="Bold" />
+                <Button
+                    Width="40"
+                    Height="40"
+                    Margin="0,0,10,0"
+                    Command="{Binding IncreaseStepperCommand}"
+                    Content="+"
+                    FontSize="18"
+                    FontWeight="Bold" />
+                <TextBlock
+                    VerticalAlignment="Center"
+                    FontSize="20"
+                    Text="{Binding Stepper}" />
+            </StackPanel>
+
+            <Button
+                Grid.Column="1"
+                Width="100"
+                Margin="0,0,10,0"
+                HorizontalAlignment="Right"
+                Background="{StaticResource appColor}"
+                BorderBrush="DimGray"
+                BorderThickness="2"
+                Command="{Binding AddToCartCommand}"
+                Content="Add to Cart"
+                Foreground="Black" />
+        </Grid>
+    </Grid>
+</UserControl>
